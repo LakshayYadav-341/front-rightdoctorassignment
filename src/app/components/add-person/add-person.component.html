@@ -1,0 +1,67 @@
+<div class="form-container">
+    <h2>Add Person</h2>
+    <form #personForm="ngForm" (ngSubmit)="savePerson()" novalidate>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input 
+          id="name" 
+          [(ngModel)]="person.name" 
+          name="name" 
+          #name="ngModel"
+          required>
+        <div class="error" *ngIf="name.invalid && name.touched">
+          Name is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input 
+          id="age" 
+          type="number" 
+          [(ngModel)]="person.age" 
+          name="age" 
+          #age="ngModel"
+          required min="1">
+        <div class="error" *ngIf="age.invalid && age.touched">
+          <span *ngIf="age.errors?.['required']">Age is required.</span>
+          <span *ngIf="age.errors?.['min']">Age must be at least 1.</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select 
+          id="gender" 
+          [(ngModel)]="person.gender" 
+          name="gender" 
+          #gender="ngModel"
+          required>
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <div class="error" *ngIf="gender.invalid && gender.touched">
+          Gender is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="mobile">Mobile:</label>
+        <input 
+          id="mobile" 
+          [(ngModel)]="person.mobile" 
+          name="mobile" 
+          #mobile="ngModel"
+          required pattern="^[0-9]{10}$">
+        <div class="error" *ngIf="mobile.invalid && mobile.touched">
+          <span *ngIf="mobile.errors?.['required']">Mobile number is required.</span>
+          <span *ngIf="mobile.errors?.['pattern']">Enter a valid 10-digit mobile number.</span>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn-save" [disabled]="personForm.invalid">Save</button>
+    </form>
+  </div>
+  
